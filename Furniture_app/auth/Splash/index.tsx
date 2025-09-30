@@ -4,6 +4,11 @@ import { View, Text, Image } from 'react-native';
 import Button from '@/components/Button';
 import styles from './styles';
 
+interface SplashProps {
+  onSignUpPress?: () => void;
+  onSignInPress?: () => void;
+}
+
 export default function Splash() {
   const handleSignUp = () => {
     console.log('Sign Up pressed');

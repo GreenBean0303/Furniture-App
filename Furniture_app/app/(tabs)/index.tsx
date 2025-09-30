@@ -1,5 +1,17 @@
-import Splash from '@/components/Splash';
+import { useState } from 'react';
+import Splash from '@/auth/Splash';
+import SignUp from '@/auth/SignUp';
 
 export default function HomeScreen() {
-  return <Splash />;
+  const [currentScreen, setCurrentScreen] = useState('splash');
+
+  if (currentScreen === 'splash') {
+    return <Splash onSignUpPress={() => setCurrentScreen('signup')} />;
+  }
+
+  if (currentScreen === 'signup') {
+    return <SignUp onBackPress={() => setCurrentScreen('splash')} />;
+  }
+
+  return <Splash onSignUpPress={() => setCurrentScreen('signup')} />;
 }
