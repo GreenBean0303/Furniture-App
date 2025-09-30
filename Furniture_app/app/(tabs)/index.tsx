@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import Splash from '@/auth/Splash';
-import SignUp from '@/auth/SignUp';
+import { useState } from "react";
+import Splash from "@/auth/Splash";
+import SignUp from "@/auth/SignUp/SignUp";
+import React from "react";
 
 export default function HomeScreen() {
-  const [currentScreen, setCurrentScreen] = useState('splash');
+  const [currentScreen, setCurrentScreen] = useState("splash");
 
-  if (currentScreen === 'splash') {
-    return <Splash onSignUpPress={() => setCurrentScreen('signup')} />;
+  if (currentScreen === "splash") {
+    return <Splash onSignUpPress={() => setCurrentScreen("signup")} />;
   }
 
-  if (currentScreen === 'signup') {
-    return <SignUp onBackPress={() => setCurrentScreen('splash')} />;
+  if (currentScreen === "signup") {
+    return <SignUp onBackPress={() => setCurrentScreen("splash")} />;
   }
 
-  return <Splash onSignUpPress={() => setCurrentScreen('signup')} />;
+  return <Splash onSignUpPress={() => setCurrentScreen("signup")} />;
 }
