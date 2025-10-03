@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    paddingVertical: 10,
   },
   checkboxBase: {
     width: 16,

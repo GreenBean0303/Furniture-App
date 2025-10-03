@@ -16,6 +16,12 @@ const colors = {
   border: "#E0E0E0",
   shadow: "#00000020",
   grey: "#8D9BB5",
+  lightGrey: "#DADADA",
+  blue: "#4f63ac",
+  white: "#FFFFFF",
+  orange: "#fca34d",
+  black: "#000000",
+  darkGrey: "#3F4A59",
 };
 
 export default colors;

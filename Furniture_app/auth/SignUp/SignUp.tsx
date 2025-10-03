@@ -4,6 +4,9 @@ import { styles } from "./styles";
 import AuthHeader from "@/components/AuthHeader";
 import Input from "@/components/Input";
 import Checkbox from "@/components/Checkbox";
+import Button from "@/components/Button";
+import Separator from "@/components/Separator";
+import GoogleLogin from "@/components/GoogleLogin";
 
 const SignUpScreen = ({ navigation, onBackPress }: any) => {
   const [email, setEmail] = useState("");
@@ -53,6 +56,9 @@ const SignUpScreen = ({ navigation, onBackPress }: any) => {
           onCheck={setChecked}
           title="I agree to the Terms of Service and Privacy Policy"
         />
+        <Button title="Sign Up" variant="primary" />
+        <Separator text="Or sign up with" />
+        <GoogleLogin />
       </View>
     </View>
   );
