@@ -3,18 +3,15 @@ import { View } from "react-native";
 import { styles } from "./styles";
 import AuthHeader from "@/components/AuthHeader";
 import Input from "@/components/Input";
-import Checkbox from "@/components/Checkbox";
 import Button from "@/components/Button";
 import Separator from "@/components/Separator";
 import GoogleLogin from "@/components/GoogleLogin";
 import colors from "@/utils/colors";
 
-const SignUpScreen = ({ navigation, onBackPress }: any) => {
+const SignInScreen = ({ navigation, onBackPress }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   const handleBack = () => {
     if (onBackPress) {
@@ -26,16 +23,9 @@ const SignUpScreen = ({ navigation, onBackPress }: any) => {
 
   return (
     <View style={styles.container}>
-      <AuthHeader title="Sign Up" onPress={handleBack} />
+      <AuthHeader title="Sign In" onPress={handleBack} />
 
       <View style={styles.content}>
-        <Input
-          label="Name"
-          placeholder="John Doe"
-          value={fullName}
-          onChangeText={setFullName}
-        />
-
         <Input
           label="Email"
           placeholder="example@gmail.com"
@@ -52,17 +42,13 @@ const SignUpScreen = ({ navigation, onBackPress }: any) => {
           isPasswordVisible={isPasswordVisible}
           onEyePress={() => setIsPasswordVisible(!isPasswordVisible)}
         />
-        <Checkbox
-          checked={checked}
-          onCheck={setChecked}
-          title="I agree to the Terms of Service and Privacy Policy"
-        />
-        <Button title="Sign Up" variant="primary" />
-        <Separator text="Or sign up with" />
+
+        <Button title="Sign In" variant="primary" />
+        <Separator text="Don't have an account? Sign up" />
         <GoogleLogin />
       </View>
     </View>
   );
 };
 
-export default SignUpScreen;
+export default SignInScreen;
