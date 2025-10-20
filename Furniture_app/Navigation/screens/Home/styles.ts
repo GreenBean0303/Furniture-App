@@ -4,11 +4,14 @@ import colors from "@/utils/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  content: {
-    padding: 16,
+    backgroundColor: colors.background,
   },
   categoriesList: {
     marginTop: 16,
+    marginBottom: 16,
+    paddingHorizontal: 24,
+  },
+  productsList: {
+    paddingHorizontal: 24,
   },
 });

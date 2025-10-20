@@ -1,25 +1,28 @@
 import React from "react";
-import { Text, Image, Pressable } from "react-native";
+import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
 import { styles } from "./styles";
 
-interface ProductHomeItemProps {
-  imageUrl: string;
-  title: string;
-  price: number;
-  onPress: () => void;
-}
+const { width } = Dimensions.get("window");
 
-const ProductHomeItem: React.FC<ProductHomeItemProps> = ({
-  imageUrl,
+type ProductHomeItemProps = {
+  title: string;
+  price: string;
+  imageUrl: string;
+  onPress: () => void;
+};
+
+const ProductHomeItem = ({
   title,
   price,
+  imageUrl,
   onPress,
-}) => {
+}: ProductHomeItemProps) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Image source={{ uri: imageUrl }} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
-    </Pressable>
+      <Text style={styles.price}>{price}</Text>
+    </TouchableOpacity>
   );
 };
 
