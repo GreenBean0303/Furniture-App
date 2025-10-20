@@ -11,9 +11,24 @@ export const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: 40,
+    paddingTop: 80,
   },
   button: {
     marginVertical: 20,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  },
+  footerText: {
+    fontSize: 14,
+    color: colors.grey,
+  },
+  footerLink: {
+    fontSize: 14,
+    color: colors.primary,
+    fontWeight: "600",
   },
 });

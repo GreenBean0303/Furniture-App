@@ -3,11 +3,11 @@ import colors from "@/utils/colors";
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 24,
   },
   label: {
     fontSize: 14,
-    color: "#8A8A8A",
+    color: colors.primary,
     marginBottom: 8,
     fontWeight: "500",
   },
@@ -18,19 +18,19 @@ const styles = StyleSheet.create({
     borderColor: colors.grey,
     borderRadius: 14,
     paddingHorizontal: 16,
+    backgroundColor: colors.background,
+    height: 56,
   },
   input: {
     flex: 1,
-    paddingVertical: 16,
     fontSize: 16,
     color: colors.textPrimary,
-  },
-  eyeButton: {
-    padding: 8,
+    paddingVertical: 16,
   },
   eyeIcon: {
     width: 24,
     height: 24,
+    marginLeft: 8,
   },
 });
 

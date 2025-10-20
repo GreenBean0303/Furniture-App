@@ -10,21 +10,19 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 10,
+    marginTop: 32,
+    marginBottom: 24,
   },
-
   secondaryButton: {
     backgroundColor: colors.transparent,
     paddingVertical: 10,
   },
-
   buttonText: {
     color: colors.textLight,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
   },
-
   secondaryButtonText: {
     color: colors.primary,
     fontSize: 16,

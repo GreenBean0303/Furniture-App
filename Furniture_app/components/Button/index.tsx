@@ -1,17 +1,19 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, StyleProp, ViewStyle } from "react-native";
 import styles from "./styles";
 
 interface ButtonProps {
   title: string;
   onPress?: () => void;
   variant?: "primary" | "secondary";
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function Button({
   title,
   onPress,
   variant = "primary",
+  style,
 }: ButtonProps) {
   const handlePress = () => {
     console.log(`${title} button pressed`);
@@ -22,7 +24,11 @@ export default function Button({
 
   return (
     <TouchableOpacity
-      style={[styles.button, variant === "secondary" && styles.secondaryButton]}
+      style={[
+        styles.button,
+        variant === "secondary" && styles.secondaryButton,
+        style,
+      ]}
       onPress={handlePress}
       activeOpacity={0.6}
     >

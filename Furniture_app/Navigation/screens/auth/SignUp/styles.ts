@@ -16,4 +16,19 @@ export const styles = StyleSheet.create({
   button: {
     marginVertical: 20,
   },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  footerText: {
+    fontSize: 14,
+    color: colors.grey,
+  },
+  footerLink: {
+    fontSize: 14,
+    color: colors.primary,
+    fontWeight: "600",
+  },
 });

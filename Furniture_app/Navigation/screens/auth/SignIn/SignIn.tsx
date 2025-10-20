@@ -1,48 +1,41 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import { styles } from "./styles";
+import { View, Text, TouchableOpacity } from "react-native";
 import AuthHeader from "@/components/AuthHeader";
 import Input from "@/components/Input";
-import Checkbox from "@/components/Checkbox";
 import Button from "@/components/Button";
 import Separator from "@/components/Separator";
 import GoogleLogin from "@/components/GoogleLogin";
-import colors from "@/utils/colors";
+import { styles } from "./styles";
 
-const SignUpScreen = ({ navigation, onBackPress }: any) => {
+export default function SignIn({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   const handleBack = () => {
-    if (onBackPress) {
-      onBackPress();
-    } else if (navigation) {
-      navigation.goBack();
-    }
+    navigation.goBack();
+  };
+
+  const handleSignIn = () => {
+    // TODO: Add your authentication logic here
+    // On successful login, navigate to MainApp
+    navigation.navigate("MainApp");
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate("SignUp");
   };
 
   return (
     <View style={styles.container}>
-      <AuthHeader title="Sign Up" onPress={handleBack} />
-
+      <AuthHeader title="Sign In" onPress={handleBack} />
       <View style={styles.content}>
         <Input
-          label="Name"
-          placeholder="John Doe"
-          value={fullName}
-          onChangeText={setFullName}
-        />
-
-        <Input
-          label="Email"
+          label="E-mail"
           placeholder="example@gmail.com"
           value={email}
           onChangeText={setEmail}
         />
-
         <Input
           label="Password"
           placeholder="••••••••"
@@ -52,17 +45,17 @@ const SignUpScreen = ({ navigation, onBackPress }: any) => {
           isPasswordVisible={isPasswordVisible}
           onEyePress={() => setIsPasswordVisible(!isPasswordVisible)}
         />
-        <Checkbox
-          checked={checked}
-          onCheck={setChecked}
-          title="I agree to the Terms of Service and Privacy Policy"
-        />
-        <Button title="Sign Up" variant="primary" />
-        <Separator text="Or sign up with" />
+        <Button title="Sign In" variant="primary" onPress={handleSignIn} />
+        <Separator text="Or sign in with" />
         <GoogleLogin />
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={handleSignUp}>
+            <Text style={styles.footerLink}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
-};
-
-export default SignUpScreen;
+}

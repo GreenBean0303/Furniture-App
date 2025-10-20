@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    color: colors.textPrimary,
+    color: colors.primary,
     flex: 1,
   },
   boldText: {

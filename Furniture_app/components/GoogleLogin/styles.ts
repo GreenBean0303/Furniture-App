@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     marginBottom: 50,
+    marginTop: 24,
   },
   image: {
     width: 30,
