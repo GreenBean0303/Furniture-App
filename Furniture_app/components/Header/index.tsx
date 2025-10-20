@@ -10,6 +10,8 @@ interface HeaderProps {
   showBack?: boolean;
   showSearch?: boolean;
   showLogout?: boolean;
+  keyword?: string;
+  setKeyword?: (keyword: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -20,11 +22,19 @@ const Header: React.FC<HeaderProps> = ({
   showBack,
   showSearch,
   showLogout,
+  keyword,
+  setKeyword,
 }) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
 
   const handleSearch = () => {
-    setShowSearchInput(!showSearchInput);
+    const newState = !showSearchInput;
+    setShowSearchInput(newState);
+
+    if (!newState && setKeyword) {
+      setKeyword("");
+    }
+
     if (onSearch) {
       onSearch();
     }
@@ -43,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({
         ) : (
           <View style={styles.space} />
         )}
+        <Text style={styles.title}>{title}</Text>
         {showSearch ? (
           <Pressable hitSlop={20} onPress={handleSearch}>
             <Image
@@ -50,11 +61,7 @@ const Header: React.FC<HeaderProps> = ({
               source={require("../../assets/images/search.png")}
             />
           </Pressable>
-        ) : (
-          <View style={styles.space} />
-        )}
-        <Text style={styles.title}>{title}</Text>
-        {showLogout ? (
+        ) : showLogout ? (
           <Pressable hitSlop={20} onPress={onLogout}>
             <Image
               style={styles.icon}
@@ -69,6 +76,14 @@ const Header: React.FC<HeaderProps> = ({
         <TextInput
           style={styles.searchInput}
           placeholder="Type your keyword..."
+          value={keyword || ""}
+          onChangeText={(text) => {
+            console.log("Typing:", text);
+            if (setKeyword) {
+              setKeyword(text);
+            }
+          }}
+          autoFocus
         />
       )}
     </View>

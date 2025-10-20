@@ -1,25 +1,29 @@
 import React from "react";
-import { Text, Image, Pressable, View } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 
-interface CategoryBoxProps {
+type CategoryBoxProps = {
   title: string;
   imageUrl: string;
+  isSelected?: boolean;
   onPress: () => void;
-}
+};
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({
+const CategoryBox = ({
   title,
   imageUrl,
+  isSelected = false,
   onPress,
-}) => {
+}: CategoryBoxProps) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
-      <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.container, isSelected && styles.selectedContainer]}>
+        <Image source={{ uri: imageUrl }} style={styles.image} />
       </View>
-    </Pressable>
+      <Text style={[styles.title, isSelected && styles.selectedTitle]}>
+        {title}
+      </Text>
+    </TouchableOpacity>
   );
 };
 

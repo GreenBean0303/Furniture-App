@@ -3,7 +3,7 @@ import { View, Text, TextInput, Image, Pressable } from "react-native";
 import styles from "./styles";
 
 export type InputProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
   value: string;
   onChangeText: (text: string) => void;
@@ -23,7 +23,7 @@ function Input({
 }: InputProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}

@@ -27,10 +27,14 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     paddingVertical: 16,
   },
+  eyeButton: {
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   eyeIcon: {
     width: 24,
     height: 24,
-    marginLeft: 8,
   },
 });
 

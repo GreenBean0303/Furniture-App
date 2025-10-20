@@ -6,11 +6,14 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingHorizontal: 24,
+    marginBottom: 16,
   },
   title: {
-    color: colors.black,
-    fontSize: 16,
+    color: colors.textPrimary,
+    fontSize: 24,
     fontWeight: "bold",
+    marginBottom: 16,
   },
   icon: {
     width: 24,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
@@ -23,13 +23,38 @@ interface Product {
 }
 
 const Home = () => {
+  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [keyword, setKeyword] = useState<string>("");
+
+  console.log("Home - Current keyword:", keyword);
+  useEffect(() => {
+    let filtered = products;
+
+    if (selectedCategory !== null && selectedCategory?.title !== "Popular") {
+      filtered = filtered.filter(
+        (product) => product.category === selectedCategory?.id
+      );
+    }
+
+    if (keyword) {
+      filtered = filtered.filter((product) =>
+        product.title.toLowerCase().includes(keyword.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [selectedCategory, keyword]);
+
   const renderCategoryItem = ({ item }: { item: Category }) => {
     return (
       <CategoryBox
         title={item.title}
         imageUrl={item.image}
+        isSelected={item.id === selectedCategory?.id}
         onPress={() => {
-          console.log(`Category ${item.title} pressed`);
+          setSelectedCategory(item);
+          console.log(`Category ${item.title} selected`);
         }}
       />
     );
@@ -50,7 +75,12 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header showSearch={true} title="Find All You Need" />
+      <Header
+        showSearch={true}
+        title="Find All You Need"
+        keyword={keyword}
+        setKeyword={setKeyword}
+      />
 
       <FlatList
         data={categories as Category[]}
@@ -61,16 +91,18 @@ const Home = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.categoriesList}
+        keyboardShouldPersistTaps="handled"
       />
 
       <FlatList
-        data={products}
+        data={filteredProducts}
         renderItem={renderProductItem}
         keyExtractor={(item) => String(item.id)}
         numColumns={2}
         contentContainerStyle={styles.productsList}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 100 }} />}
+        keyboardShouldPersistTaps="handled"
       />
     </SafeAreaView>
   );
