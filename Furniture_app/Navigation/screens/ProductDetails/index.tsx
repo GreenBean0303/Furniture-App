@@ -6,6 +6,8 @@ import {
   ScrollView,
   Pressable,
   Dimensions,
+  Linking,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/Button";
@@ -17,25 +19,40 @@ const { height } = Dimensions.get("window");
 const ProductDetails = ({ navigation, route }: any) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  console.log("Navigation:", navigation);
-  console.log("Route:", route);
-  console.log("Product data:", route.params?.product);
-
   const product = route.params?.product;
 
   const handleBack = () => {
     navigation.goBack();
   };
 
-  const handleContactSeller = () => {
-    console.log("Contact Seller pressed");
-    // Add r contact seller logic
+  const handleContactSeller = async () => {
+    const email = "seller@furniture.com";
+    const subject = `Inquiry about ${product?.title || "Product"}`;
+    const body = `Hi, I'm interested in the ${product?.title}. Please provide more details.`;
+
+    const url = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+
+      if (canOpen) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(
+          "Error",
+          "No email app found. Please install an email app to contact the seller."
+        );
+      }
+    } catch (error) {
+      console.error("Error opening email:", error);
+      Alert.alert("Error", "Could not open email app. Please try again later.");
+    }
   };
 
   const handleToggleFavorite = () => {
     setIsFavorite(!isFavorite);
-    console.log("Favorite toggled:", !isFavorite);
-    // Add favorite logic
   };
 
   return (

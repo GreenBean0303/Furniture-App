@@ -36,8 +36,6 @@ const Favourites: React.FC<FavouritesProps> = ({ navigation }) => {
         price={item.price}
         imageUrl={item.image}
         onPress={() => {
-          console.log(`Favourite ${item.title} pressed`);
-          // Navigate to ProductDetails screen
           if (navigation) {
             navigation.navigate("ProductDetails", { product: item });
           }

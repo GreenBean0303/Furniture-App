@@ -46,6 +46,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
         onScroll={handleScroll}
         scrollEventThrottle={16}
       />
+
       <View style={styles.pagination}>
         {images.map((_, index) => (
           <View
