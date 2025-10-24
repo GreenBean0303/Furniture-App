@@ -14,7 +14,11 @@ interface Product {
   price: string;
 }
 
-const Favourites = () => {
+interface FavouritesProps {
+  navigation?: any;
+}
+
+const Favourites: React.FC<FavouritesProps> = ({ navigation }) => {
   const [favouriteProducts, setFavouriteProducts] = useState<Product[]>(
     products.slice(0, 3)
   );
@@ -33,6 +37,10 @@ const Favourites = () => {
         imageUrl={item.image}
         onPress={() => {
           console.log(`Favourite ${item.title} pressed`);
+          // Navigate to ProductDetails screen
+          if (navigation) {
+            navigation.navigate("ProductDetails", { product: item });
+          }
         }}
         onRemove={() => handleRemoveFavourite(item.id)}
       />

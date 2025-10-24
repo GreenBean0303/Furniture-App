@@ -16,7 +16,7 @@ const colors = {
   border: "#E0E0E0",
   shadow: "#00000020",
   grey: "#8D9BB5",
-  lightGrey: "#DADADA",
+  lightGrey: "#F0F0F0",
   blue: "#4f63ac",
   white: "#FFFFFF",
   orange: "#fca34d",

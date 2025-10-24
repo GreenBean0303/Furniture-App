@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Image } from "react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import colors from "@/utils/colors";
 
@@ -51,8 +52,20 @@ function TabNavigator() {
         component={Favourites}
         options={{
           title: "Favorites",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="bookmark.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Image
+              source={
+                focused
+                  ? require("@/assets/images/favourite-icon.png")
+                  : require("@/assets/images/bottom-favourite.png")
+              }
+              style={{
+                width: 28,
+                height: 28,
+                tintColor: color,
+              }}
+              resizeMode="contain"
+            />
           ),
         }}
       />
@@ -61,8 +74,20 @@ function TabNavigator() {
         component={Profile}
         options={{
           title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Image
+              source={
+                focused
+                  ? require("@/assets/images/bottom-profile-fill.png")
+                  : require("@/assets/images/bottom-profile.png")
+              }
+              style={{
+                width: 28,
+                height: 28,
+                tintColor: color,
+              }}
+              resizeMode="contain"
+            />
           ),
         }}
       />
@@ -70,7 +95,6 @@ function TabNavigator() {
   );
 }
 
-// Main Stack Navigator (handles everything)
 export default function AppNavigator() {
   return (
     <Stack.Navigator
