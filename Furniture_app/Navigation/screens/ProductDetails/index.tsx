@@ -26,7 +26,7 @@ const ProductDetails = ({ navigation, route }: any) => {
   };
 
   const handleContactSeller = async () => {
-    const email = "agnes.lootsmann@voco.ee";
+    const email = "suvaline@email.ee";
     const subject = `Inquiry about ${product?.title || "Product"}`;
     const body = `Hi, I'm interested in the ${product?.title}. Please provide more details.`;
 
