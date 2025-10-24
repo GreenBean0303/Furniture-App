@@ -1,37 +1,31 @@
 export const categories = [
   {
     title: "Popular",
-    image:
-      "https://static8.depositphotos.com/1338574/831/i/600/depositphotos_8318731-stock-photo-gold-star.jpg",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400",
   },
   {
     id: 1,
     title: "Chair",
-    image:
-      "https://www.red-dot.org/fileadmin/bilder/Kategorien_PD/PD_cat_01.jpg",
+    image: "https://images.unsplash.com/photo-1503602642458-232111445657?w=400",
   },
   {
     id: 2,
     title: "Table",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9zWCkZ4tvzBmsxyMCY1sMOqxHdAPY6oSRP-vy4FBxH50h86Q-kstU8Qp7WSeTtsIuZ6Y&usqp=CAU",
+    image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400",
   },
   {
     id: 3,
     title: "Armchair",
-    image:
-      "https://asset1.cxnmarksandspencer.com/is/image/mands/__T65_9889D_FS__EC_CHR_ELLI_0",
+    image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400",
   },
   {
     id: 4,
     title: "Sofa",
-    image:
-      "https://www.urbanconcepts.ph/wp/wp-content/uploads/2017/08/4202-1.jpg",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400",
   },
   {
     id: 5,
     title: "Bed",
-    image:
-      "https://szyszkadesign.com/wp-content/uploads/2021/12/categorybeds-1-1200x1200-1.jpg",
+    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400",
   },
 ];

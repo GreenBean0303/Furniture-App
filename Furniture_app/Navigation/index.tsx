@@ -13,6 +13,7 @@ import SignIn from "./screens/auth/SignIn/SignIn";
 import Home from "./screens/Home";
 import Favourites from "./screens/Favourites/index";
 import Profile from "./screens/Profile/index";
+import ProductDetails from "./screens/ProductDetails/index";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -82,6 +83,7 @@ export default function AppNavigator() {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="MainApp" component={TabNavigator} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );
 }

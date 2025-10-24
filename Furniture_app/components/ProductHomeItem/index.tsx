@@ -20,8 +20,12 @@ const ProductHomeItem = ({
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>{price}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
+      <Text style={styles.price} numberOfLines={1}>
+        {price}
+      </Text>
     </TouchableOpacity>
   );
 };

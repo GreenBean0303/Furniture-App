@@ -22,18 +22,20 @@ interface Product {
   price: string;
 }
 
-const Home = () => {
-  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+const Home = ({ navigation }: any) => {
+  // Start with Popular selected (first category)
+  const [selectedCategory, setSelectedCategory] = useState<any>(categories[0]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [keyword, setKeyword] = useState<string>("");
 
-  console.log("Home - Current keyword:", keyword);
+  console.log("Home - Selected category:", selectedCategory);
+
   useEffect(() => {
     let filtered = products;
 
-    if (selectedCategory !== null && selectedCategory?.title !== "Popular") {
+    if (selectedCategory && selectedCategory.title !== "Popular") {
       filtered = filtered.filter(
-        (product) => product.category === selectedCategory?.id
+        (product) => product.category === selectedCategory.id
       );
     }
 
@@ -43,15 +45,18 @@ const Home = () => {
       );
     }
 
+    console.log("Filtered products count:", filtered.length);
     setFilteredProducts(filtered);
   }, [selectedCategory, keyword]);
 
   const renderCategoryItem = ({ item }: { item: Category }) => {
+    const isSelected = selectedCategory?.title === item.title;
+
     return (
       <CategoryBox
         title={item.title}
         imageUrl={item.image}
-        isSelected={item.id === selectedCategory?.id}
+        isSelected={isSelected}
         onPress={() => {
           setSelectedCategory(item);
           console.log(`Category ${item.title} selected`);
@@ -67,7 +72,7 @@ const Home = () => {
         price={item.price}
         imageUrl={item.image}
         onPress={() => {
-          console.log(`Product ${item.title} pressed`);
+          navigation.navigate("ProductDetails", { product: item });
         }}
       />
     );
@@ -92,9 +97,11 @@ const Home = () => {
         showsHorizontalScrollIndicator={false}
         style={styles.categoriesList}
         keyboardShouldPersistTaps="handled"
+        extraData={selectedCategory}
       />
 
       <FlatList
+        key={selectedCategory?.id || selectedCategory?.title || "all"}
         data={filteredProducts}
         renderItem={renderProductItem}
         keyExtractor={(item) => String(item.id)}
@@ -103,6 +110,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 100 }} />}
         keyboardShouldPersistTaps="handled"
+        extraData={filteredProducts}
       />
     </SafeAreaView>
   );

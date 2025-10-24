@@ -2,11 +2,14 @@ import { StyleSheet } from "react-native";
 import colors from "@/utils/colors";
 
 export const styles = StyleSheet.create({
+  wrapper: {
+    marginRight: 12,
+    alignItems: "center",
+  },
   container: {
     backgroundColor: colors.lightGrey,
     borderRadius: 12,
     padding: 12,
-    marginRight: 12,
     alignItems: "center",
     justifyContent: "center",
     width: 70,
@@ -21,10 +24,12 @@ export const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   title: {
-    fontSize: 12,
-    color: colors.grey,
-    marginTop: 4,
+    fontSize: 14,
+    color: colors.black,
+    marginTop: 6,
     textAlign: "center",
+    width: 70,
+    marginBottom: 40,
   },
   selectedTitle: {
     color: colors.primary,

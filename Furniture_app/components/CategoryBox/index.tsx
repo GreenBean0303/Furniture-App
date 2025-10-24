@@ -16,11 +16,14 @@ const CategoryBox = ({
   onPress,
 }: CategoryBoxProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.wrapper}>
       <View style={[styles.container, isSelected && styles.selectedContainer]}>
         <Image source={{ uri: imageUrl }} style={styles.image} />
       </View>
-      <Text style={[styles.title, isSelected && styles.selectedTitle]}>
+      <Text
+        style={[styles.title, isSelected && styles.selectedTitle]}
+        numberOfLines={1}
+      >
         {title}
       </Text>
     </TouchableOpacity>
