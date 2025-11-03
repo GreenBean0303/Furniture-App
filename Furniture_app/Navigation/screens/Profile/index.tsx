@@ -1,43 +1,63 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import colors from "@/utils/colors";
+import Header from "@/components/Header";
+import { styles } from "./styles";
 
-const Profile = () => {
+interface ProfileProps {
+  navigation?: any;
+}
+
+const Profile: React.FC<ProfileProps> = ({ navigation }) => {
+  const handleLogout = () => {
+    console.log("Logout pressed");
+    if (navigation) {
+      navigation.navigate("Splash");
+    }
+  };
+
+  const handleMyListings = () => {
+    console.log("My Listings pressed");
+    if (navigation) {
+      navigation.navigate("MyListings");
+    }
+  };
+
+  const handleSettings = () => {
+    console.log("Settings pressed");
+    if (navigation) {
+      navigation.navigate("Settings");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <Header title="Profile" showLogout={true} onLogout={handleLogout} />
+
       <View style={styles.content}>
-        <Text style={styles.title}>Profile</Text>
-        <Text style={styles.subtitle}>
-          Your profile information will appear here
-        </Text>
+        <View style={styles.userInfo}>
+          <View style={styles.avatarContainer}>
+            <Text style={styles.avatarText}>BP</Text>
+          </View>
+          <Text style={styles.name}>Bruno Pham</Text>
+          <Text style={styles.email}>bruno2031@gmail.com</Text>
+        </View>
+        <View style={styles.section}>
+          <TouchableOpacity style={styles.menuItem} onPress={handleMyListings}>
+            <Text style={styles.menuItemText}>My Listings</Text>
+            <Text style={styles.menuItemSubtext}>2 listings</Text>
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity style={styles.menuItem} onPress={handleSettings}>
+            <Text style={styles.menuItemText}>Settings</Text>
+            <Text style={styles.menuItemSubtext}>Account, FAQ, Contact</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 24,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: colors.textPrimary,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.grey,
-    textAlign: "center",
-  },
-});
 
 export default Profile;

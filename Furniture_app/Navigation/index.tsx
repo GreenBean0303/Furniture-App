@@ -1,7 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image } from "react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import colors from "@/utils/colors";
 
@@ -14,12 +13,25 @@ import SignIn from "./screens/auth/SignIn/SignIn";
 import Home from "./screens/Home";
 import Favourites from "./screens/Favourites/index";
 import Profile from "./screens/Profile/index";
-import ProductDetails from "./screens/ProductDetails/index";
+import Settings from "./screens/Settings/index";
+import MyListings from "./screens/MyListings";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const ProfileStack = createStackNavigator();
 
-// Tab Navigator (shows after login)
+// Profile Stack Navigator
+function ProfileNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="ProfileScreen" component={Profile} />
+      <ProfileStack.Screen name="Settings" component={Settings} />
+      <ProfileStack.Screen name="MyListings" component={MyListings} />
+    </ProfileStack.Navigator>
+  );
+}
+
+// Tab Navigator
 function TabNavigator() {
   return (
     <Tab.Navigator
@@ -52,42 +64,18 @@ function TabNavigator() {
         component={Favourites}
         options={{
           title: "Favorites",
-          tabBarIcon: ({ color, focused }) => (
-            <Image
-              source={
-                focused
-                  ? require("@/assets/images/favourite-icon.png")
-                  : require("@/assets/images/bottom-favourite.png")
-              }
-              style={{
-                width: 28,
-                height: 28,
-                tintColor: color,
-              }}
-              resizeMode="contain"
-            />
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="bookmark.fill" color={color} />
           ),
         }}
       />
       <Tab.Screen
         name="ProfileTab"
-        component={Profile}
+        component={ProfileNavigator}
         options={{
           title: "Profile",
-          tabBarIcon: ({ color, focused }) => (
-            <Image
-              source={
-                focused
-                  ? require("@/assets/images/bottom-profile-fill.png")
-                  : require("@/assets/images/bottom-profile.png")
-              }
-              style={{
-                width: 28,
-                height: 28,
-                tintColor: color,
-              }}
-              resizeMode="contain"
-            />
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="person.fill" color={color} />
           ),
         }}
       />
@@ -95,6 +83,7 @@ function TabNavigator() {
   );
 }
 
+// Main Stack Navigator (unchanged)
 export default function AppNavigator() {
   return (
     <Stack.Navigator
@@ -107,7 +96,6 @@ export default function AppNavigator() {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="MainApp" component={TabNavigator} />
-      <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );
 }
