@@ -11,9 +11,10 @@ import {
   ActivityIndicator,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { launchImageLibrary, Asset } from "react-native-image-picker";
+import * as ImagePicker from "react-native-image-picker";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
@@ -22,10 +23,17 @@ import { styles } from "./styles";
 
 interface CreateListingProps {
   navigation?: any;
+  route?: any;
 }
 
-const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
-  const [images, setImages] = useState<Asset[]>([]);
+interface ImageAsset {
+  uri: string;
+  fileName?: string;
+  assetId?: string;
+}
+
+const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
+  const [images, setImages] = useState<ImageAsset[]>([]);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     title: "",
@@ -39,17 +47,38 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
   const handleImagePicker = async () => {
     setLoading(true);
 
-    const result = await launchImageLibrary({
+    const options: ImagePicker.ImageLibraryOptions = {
       mediaType: "photo",
-      selectionLimit: 0, // 0 = unlimited
+      selectionLimit: 0, // 0 = unlimited selection
       quality: 1,
+    };
+
+    ImagePicker.launchImageLibrary(options, (response: any) => {
+      setLoading(false);
+
+      if (response.didCancel) {
+        return;
+      }
+
+      if (response.errorCode) {
+        Alert.alert("Error", response.errorMessage || response.errorCode);
+        return;
+      }
+
+      if (response.assets && response.assets.length > 0) {
+        const newImages = response.assets.map(
+          (asset: { uri?: string; fileName?: string; assetId?: string }) => ({
+            uri: asset.uri || "",
+            fileName:
+              asset.fileName ||
+              (asset.uri ? asset.uri.split("/").pop() : undefined) ||
+              `image_${Date.now()}`,
+            assetId: asset.assetId,
+          })
+        );
+        setImages([...images, ...newImages]);
+      }
     });
-
-    setLoading(false);
-
-    if (result.assets) {
-      setImages([...images, ...result.assets]);
-    }
   };
 
   const handleDeleteImage = (fileName: string | undefined) => {
@@ -68,11 +97,48 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
-    console.log("Submitted values:", values);
-    console.log("Images:", images);
+    // Validation
+    if (!values.title.trim()) {
+      Alert.alert("Error", "Please enter a title");
+      return;
+    }
+    if (!values.price.trim()) {
+      Alert.alert("Error", "Please enter a price");
+      return;
+    }
+    if (images.length === 0) {
+      Alert.alert("Error", "Please add at least one image");
+      return;
+    }
+    if (!values.category) {
+      Alert.alert("Error", "Please select a category");
+      return;
+    }
 
-    // TODO: Upload to backend
-    navigation?.goBack();
+    // Create new listing object
+    const newListing = {
+      id: Date.now(), // Generate unique ID
+      title: values.title,
+      price: values.price.startsWith("$") ? values.price : `$ ${values.price}`,
+      description: values.description,
+      category: parseInt(values.category),
+      image: images[0].uri, // Main image
+      images: images.map((img) => img.uri), // All images
+    };
+
+    console.log("New listing created:", newListing);
+
+    // Pass the new listing back via navigation params
+    if (route?.params?.onListingCreated) {
+      route.params.onListingCreated(newListing);
+    }
+
+    Alert.alert("Success", "Listing created successfully!", [
+      {
+        text: "OK",
+        onPress: () => navigation?.goBack(),
+      },
+    ]);
   };
 
   const handleBackPress = () => {
@@ -115,10 +181,9 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
                   hitSlop={20}
                   onPress={() => handleDeleteImage(image.fileName)}
                 >
-                  <Image
-                    source={require("@/assets/images/close.png")}
-                    style={styles.deleteIconImage}
-                  />
+                  <View style={styles.deleteIconCircle}>
+                    <Text style={styles.deleteIconText}>×</Text>
+                  </View>
                 </Pressable>
               </View>
             ))}
@@ -132,24 +197,13 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
             onChangeText={handleChange("title")}
           />
 
-          <View style={{ marginBottom: 16 }}>
-            <Text style={styles.inputLabel}>Price</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: "#E5E7EB",
-                borderRadius: 8,
-                paddingVertical: 12,
-                paddingHorizontal: 12,
-                fontSize: 16,
-                color: "#111827",
-              }}
-              placeholder="Enter price"
-              value={values.price}
-              onChangeText={handleChange("price")}
-              keyboardType="numeric"
-            />
-          </View>
+          <Input
+            label="Price"
+            placeholder="Enter price (e.g., 50.00)"
+            value={values.price}
+            onChangeText={handleChange("price")}
+            keyboardType="numeric"
+          />
 
           {/* Category Picker */}
           <View style={styles.pickerContainer}>
@@ -166,10 +220,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
               >
                 {selectedCategory?.title || "Select category"}
               </Text>
-              <Image
-                source={require("@/assets/images/dropdown.png")}
-                style={styles.dropdownIcon}
-              />
+              <Text style={styles.dropdownArrow}>▼</Text>
             </TouchableOpacity>
           </View>
 
@@ -222,10 +273,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation }) => {
                   >
                     <Text style={styles.optionText}>{category.title}</Text>
                     {selectedCategory?.id === category.id && (
-                      <Image
-                        source={require("@/assets/images/Check.png")}
-                        style={styles.checkIcon}
-                      />
+                      <Text style={styles.checkMark}>✓</Text>
                     )}
                   </TouchableOpacity>
                 ))}

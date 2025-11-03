@@ -59,7 +59,9 @@ export const styles = StyleSheet.create({
     position: "absolute",
     top: -8,
     right: -8,
-    backgroundColor: colors.white,
+  },
+  deleteIconCircle: {
+    backgroundColor: "#FF4444",
     borderRadius: 12,
     width: 24,
     height: 24,
@@ -71,10 +73,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-  deleteIconImage: {
-    width: 12,
-    height: 12,
-    tintColor: colors.textPrimary,
+  deleteIconText: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+    lineHeight: 20,
   },
 
   // Category Picker
@@ -106,10 +109,9 @@ export const styles = StyleSheet.create({
   pickerPlaceholder: {
     color: colors.grey,
   },
-  dropdownIcon: {
-    width: 16,
-    height: 16,
-    tintColor: colors.grey,
+  dropdownArrow: {
+    fontSize: 12,
+    color: colors.grey,
   },
 
   // Description Textarea
@@ -181,9 +183,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.textPrimary,
   },
-  checkIcon: {
-    width: 20,
-    height: 20,
-    tintColor: colors.primary,
+  checkMark: {
+    fontSize: 20,
+    color: colors.primary,
+    fontWeight: "bold",
   },
 });
