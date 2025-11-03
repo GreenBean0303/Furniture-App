@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
+import ListItem from "@/components/ListItem/index";
+import Button from "@/components/Button";
 import { styles } from "./styles";
 
 interface ProfileProps {
@@ -30,31 +32,41 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
     }
   };
 
+  const handleAddNewListing = () => {
+    console.log("Add New Listing pressed");
+    if (navigation) {
+      navigation.navigate("CreateListing");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Profile" showLogout={true} onLogout={handleLogout} />
 
       <View style={styles.content}>
         <View style={styles.userInfo}>
-          <View style={styles.avatarContainer}>
-            <Text style={styles.avatarText}>BP</Text>
-          </View>
-          <Text style={styles.name}>Bruno Pham</Text>
-          <Text style={styles.email}>bruno2031@gmail.com</Text>
+          <Text style={styles.name}>User Name</Text>
+          <Text style={styles.email}>user@email.com</Text>
         </View>
-        <View style={styles.section}>
-          <TouchableOpacity style={styles.menuItem} onPress={handleMyListings}>
-            <Text style={styles.menuItemText}>My Listings</Text>
-            <Text style={styles.menuItemSubtext}>2 listings</Text>
-          </TouchableOpacity>
 
-          <View style={styles.divider} />
-
-          <TouchableOpacity style={styles.menuItem} onPress={handleSettings}>
-            <Text style={styles.menuItemText}>Settings</Text>
-            <Text style={styles.menuItemSubtext}>Account, FAQ, Contact</Text>
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <ListItem
+            title="My Listings"
+            subtitle="You have 2 listings"
+            onPress={handleMyListings}
+          />
+          <ListItem
+            title="Settings"
+            subtitle="Account, FAQ, Contact"
+            onPress={handleSettings}
+          />
         </View>
+
+        <Button
+          title="Add New Listing"
+          variant="primary"
+          onPress={handleAddNewListing}
+        />
       </View>
     </SafeAreaView>
   );

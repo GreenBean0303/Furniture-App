@@ -21,11 +21,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     height: 56,
   },
+  textareaContainer: {
+    height: 120,
+    alignItems: "flex-start",
+    paddingTop: 12,
+  },
   input: {
     flex: 1,
     fontSize: 16,
     color: colors.textPrimary,
     paddingVertical: 16,
+  },
+  textareaInput: {
+    paddingTop: 0,
   },
   eyeButton: {
     padding: 8,

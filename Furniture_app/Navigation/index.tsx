@@ -14,7 +14,8 @@ import Home from "./screens/Home";
 import Favourites from "./screens/Favourites/index";
 import Profile from "./screens/Profile/index";
 import Settings from "./screens/Settings/index";
-import MyListings from "./screens/MyListings";
+import MyListings from "./screens/MyListings/index";
+import CreateListing from "./screens/CreateListing/index";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,15 +24,20 @@ const ProfileStack = createStackNavigator();
 // Profile Stack Navigator
 function ProfileNavigator() {
   return (
-    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <ProfileStack.Screen name="ProfileScreen" component={Profile} />
       <ProfileStack.Screen name="Settings" component={Settings} />
       <ProfileStack.Screen name="MyListings" component={MyListings} />
+      <ProfileStack.Screen name="CreateListing" component={CreateListing} />
     </ProfileStack.Navigator>
   );
 }
 
-// Tab Navigator
+// Tab Navigator (shows after login)
 function TabNavigator() {
   return (
     <Tab.Navigator
@@ -83,7 +89,7 @@ function TabNavigator() {
   );
 }
 
-// Main Stack Navigator (unchanged)
+// Main Stack Navigator (handles everything)
 export default function AppNavigator() {
   return (
     <Stack.Navigator
