@@ -43,22 +43,18 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <View>
       <View style={styles.container}>
-        {showBack ? (
-          <Pressable hitSlop={20} onPress={onBackPress}>
-            <Image
-              style={styles.icon}
-              source={require("../../assets/images/back.png")}
-            />
-          </Pressable>
-        ) : (
-          <View style={styles.space} />
-        )}
-        <Text style={styles.title}>{title}</Text>
         {showSearch ? (
           <Pressable hitSlop={20} onPress={handleSearch}>
             <Image
               style={styles.icon}
               source={require("../../assets/images/search.png")}
+            />
+          </Pressable>
+        ) : showBack ? (
+          <Pressable hitSlop={20} onPress={onBackPress}>
+            <Image
+              style={styles.icon}
+              source={require("../../assets/images/back.png")}
             />
           </Pressable>
         ) : showLogout ? (
@@ -71,6 +67,8 @@ const Header: React.FC<HeaderProps> = ({
         ) : (
           <View style={styles.space} />
         )}
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.space} />
       </View>
       {showSearchInput && (
         <TextInput

@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   productsList: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 8,
+    paddingTop: 8,
   },
 });

@@ -2,33 +2,33 @@ import { StyleSheet, Dimensions } from "react-native";
 import colors from "@/utils/colors";
 
 const { width } = Dimensions.get("window");
-const COLUMN_COUNT = 2;
-const SPACING = 16;
-const PADDING = 24;
-
-const itemWidth = (width - PADDING * 2 - SPACING) / COLUMN_COUNT;
+const itemWidth = (width - 48) / 2;
 
 export const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
-    marginRight: 8,
+    width: itemWidth,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 8,
+    margin: 8,
   },
   image: {
-    width: itemWidth,
-    height: itemWidth * 1.2,
+    width: "100%",
+    height: itemWidth - 16,
     borderRadius: 8,
-    backgroundColor: colors.border,
+    marginBottom: 8,
+    backgroundColor: "#F5F5F5",
   },
   title: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "400",
     color: colors.textPrimary,
-    marginTop: 8,
+    marginBottom: 4,
+    height: 36,
   },
   price: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: colors.textPrimary,
-    marginTop: 4,
+    fontSize: 16,
+    fontWeight: "700",
+    color: colors.black,
   },
 });
