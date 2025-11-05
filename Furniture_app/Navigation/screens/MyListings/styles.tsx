@@ -6,13 +6,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  content: {
-    flex: 1,
-  },
   listContainer: {
     paddingHorizontal: 24,
     paddingTop: 16,
-    paddingBottom: 100,
+    paddingBottom: 24,
   },
   listingItem: {
     flexDirection: "row",
@@ -54,19 +51,10 @@ export const styles = StyleSheet.create({
   deleteButton: {
     padding: 8,
   },
-  deleteIconCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "#FF4444",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deleteIconText: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: "bold",
-    lineHeight: 20,
+  deleteIcon: {
+    width: 20,
+    height: 20,
+    tintColor: colors.textPrimary,
   },
   emptyContainer: {
     flex: 1,
@@ -84,29 +72,5 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.grey,
     textAlign: "center",
-    marginBottom: 24,
-  },
-  addButton: {
-    position: "absolute",
-    bottom: 24,
-    left: 24,
-    right: 24,
-    backgroundColor: colors.primary,
-    paddingVertical: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 8,
-  },
-  addButtonText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

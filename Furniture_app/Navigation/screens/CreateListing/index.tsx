@@ -14,7 +14,7 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as ImagePicker from "react-native-image-picker";
+import { launchImageLibrary, Asset } from "react-native-image-picker";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
@@ -26,14 +26,8 @@ interface CreateListingProps {
   route?: any;
 }
 
-interface ImageAsset {
-  uri: string;
-  fileName?: string;
-  assetId?: string;
-}
-
 const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
-  const [images, setImages] = useState<ImageAsset[]>([]);
+  const [images, setImages] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     title: "",
@@ -47,38 +41,17 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
   const handleImagePicker = async () => {
     setLoading(true);
 
-    const options: ImagePicker.ImageLibraryOptions = {
+    const result = await launchImageLibrary({
       mediaType: "photo",
-      selectionLimit: 0, // 0 = unlimited selection
+      selectionLimit: 0, // 0 = unlimited
       quality: 1,
-    };
-
-    ImagePicker.launchImageLibrary(options, (response: any) => {
-      setLoading(false);
-
-      if (response.didCancel) {
-        return;
-      }
-
-      if (response.errorCode) {
-        Alert.alert("Error", response.errorMessage || response.errorCode);
-        return;
-      }
-
-      if (response.assets && response.assets.length > 0) {
-        const newImages = response.assets.map(
-          (asset: { uri?: string; fileName?: string; assetId?: string }) => ({
-            uri: asset.uri || "",
-            fileName:
-              asset.fileName ||
-              (asset.uri ? asset.uri.split("/").pop() : undefined) ||
-              `image_${Date.now()}`,
-            assetId: asset.assetId,
-          })
-        );
-        setImages([...images, ...newImages]);
-      }
     });
+
+    setLoading(false);
+
+    if (result.assets) {
+      setImages([...images, ...result.assets]);
+    }
   };
 
   const handleDeleteImage = (fileName: string | undefined) => {
@@ -128,17 +101,8 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
 
     console.log("New listing created:", newListing);
 
-    // Pass the new listing back via navigation params
-    if (route?.params?.onListingCreated) {
-      route.params.onListingCreated(newListing);
-    }
-
-    Alert.alert("Success", "Listing created successfully!", [
-      {
-        text: "OK",
-        onPress: () => navigation?.goBack(),
-      },
-    ]);
+    // Navigate back to MyListings with the new listing
+    navigation.navigate("MyListings", { newListing });
   };
 
   const handleBackPress = () => {
