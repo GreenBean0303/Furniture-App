@@ -20,10 +20,11 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.white,
   },
   backIcon: {
-    width: 120,
-    height: 120,
+    width: 20,
+    height: 20,
   },
   image: {
     width: "100%",

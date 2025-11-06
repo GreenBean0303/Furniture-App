@@ -12,6 +12,8 @@ interface HeaderProps {
   showLogout?: boolean;
   keyword?: string;
   setKeyword?: (keyword: string) => void;
+  style?: object;
+  backButtonStyle?: object;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -24,6 +26,8 @@ const Header: React.FC<HeaderProps> = ({
   showLogout,
   keyword,
   setKeyword,
+  style, 
+  backButtonStyle, 
 }) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
 
@@ -41,45 +45,58 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        {showSearch ? (
-          <Pressable hitSlop={20} onPress={handleSearch}>
-            <Image
-              style={styles.icon}
-              source={require("../../assets/images/search.png")}
-            />
-          </Pressable>
-        ) : showBack ? (
-          <Pressable hitSlop={20} onPress={onBackPress}>
-            <Image
-              style={styles.icon}
-              source={require("../../assets/images/back.png")}
-            />
-          </Pressable>
-        ) : showLogout ? (
-          <Pressable hitSlop={20} onPress={onLogout}>
-            <Image
-              style={styles.icon}
-              source={require("../../assets/images/logout.png")}
-            />
-          </Pressable>
-        ) : (
-          <View style={styles.space} />
-        )}
-        <Text style={styles.title}>{title}</Text>
+    <View style={[styles.container, style]}>
+      {/* Left icon (search / back / logout) */}
+      {showSearch ? (
+        <Pressable
+          hitSlop={20}
+          onPress={handleSearch}
+          style={backButtonStyle}
+        >
+          <Image
+            style={styles.icon}
+            source={require("../../assets/images/search.png")}
+          />
+        </Pressable>
+      ) : showBack ? (
+        <Pressable
+          hitSlop={20}
+          onPress={onBackPress}
+          style={backButtonStyle}
+        >
+          <Image
+            style={styles.icon}
+            source={require("../../assets/images/back.png")}
+          />
+        </Pressable>
+      ) : showLogout ? (
+        <Pressable
+          hitSlop={20}
+          onPress={onLogout}
+          style={backButtonStyle}
+        >
+          <Image
+            style={styles.icon}
+            source={require("../../assets/images/logout.png")}
+          />
+        </Pressable>
+      ) : (
         <View style={styles.space} />
-      </View>
+      )}
+
+      {/* Title */}
+      <Text style={styles.title}>{title}</Text>
+
+      <View style={styles.space} />
+
+      {/* Optional search input */}
       {showSearchInput && (
         <TextInput
           style={styles.searchInput}
           placeholder="Type your keyword..."
           value={keyword || ""}
           onChangeText={(text) => {
-            console.log("Typing:", text);
-            if (setKeyword) {
-              setKeyword(text);
-            }
+            if (setKeyword) setKeyword(text);
           }}
           autoFocus
         />

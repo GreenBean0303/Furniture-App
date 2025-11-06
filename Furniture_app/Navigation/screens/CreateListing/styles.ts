@@ -188,4 +188,8 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: "bold",
   },
+  icon: {
+    width: 24,
+    height: 24,
+  },
 });

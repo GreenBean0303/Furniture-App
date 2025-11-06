@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    paddingTop: 30,
   },
   icon: {
     width: 24,

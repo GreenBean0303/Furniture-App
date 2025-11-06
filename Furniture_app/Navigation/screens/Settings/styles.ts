@@ -4,7 +4,7 @@ import colors from "@/utils/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#FFFFFF",
   },
   content: {
     flex: 1,
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   backIcon: {
-    width: 120,
-    height: 120,
+    width: 24,
+    height: 24,
   },
 });

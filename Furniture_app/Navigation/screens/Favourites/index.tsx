@@ -5,6 +5,7 @@ import { styles } from "./styles";
 import FavouriteItem from "@/components/FavouriteItem";
 import { products } from "@/data/products";
 import Header from "@/components/Header";
+import { useFavourites } from "../../context/FavouriteContext";
 
 interface Product {
   id: number;
@@ -20,20 +21,20 @@ interface FavouritesProps {
 }
 
 const Favourites: React.FC<FavouritesProps> = ({ navigation, route }) => {
-  const [favouriteProducts, setFavouriteProducts] = useState<Product[]>(
-    products.slice(0, 3)
-  );
+  const { favourites, removeFavourite } = useFavourites();
 
   const handleAddFavourite = (product: Product) => {
     setFavouriteProducts((prev) => {
-      const exists = prev.some((p) => p.id === product.id);
+      const exists = prev.some((p: { id: number }) => p.id === product.id);
       if (exists) return prev;
       return [...prev, product];
     });
   };
 
   const handleRemoveFavourite = (id: number) => {
-    setFavouriteProducts((prev) => prev.filter((p) => p.id !== id));
+    setFavouriteProducts((prev) =>
+      prev.filter((p: { id: number }) => p.id !== id)
+    );
   };
 
   useEffect(() => {
@@ -42,13 +43,13 @@ const Favourites: React.FC<FavouritesProps> = ({ navigation, route }) => {
     }
   }, [route.params?.newFavourite]);
 
-  const renderFavouriteItem = ({ item }: { item: Product }) => (
+  const renderFavouriteItem = ({ item }: { item: any }) => (
     <FavouriteItem
       title={item.title}
       price={item.price}
       imageUrl={item.image}
       onPress={() => navigation.navigate("ProductDetails", { product: item })}
-      onRemove={() => handleRemoveFavourite(item.id)}
+      onRemove={() => removeFavourite(item.id)}
     />
   );
 
@@ -56,9 +57,9 @@ const Favourites: React.FC<FavouritesProps> = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <Header title="Favourites" showBack={false} />
       <View style={styles.content}>
-        {favouriteProducts.length > 0 ? (
+        {favourites.length > 0 ? (
           <FlatList
-            data={favouriteProducts}
+            data={favourites}
             renderItem={renderFavouriteItem}
             keyExtractor={(item) => String(item.id)}
             showsVerticalScrollIndicator={false}
@@ -77,3 +78,6 @@ const Favourites: React.FC<FavouritesProps> = ({ navigation, route }) => {
 };
 
 export default Favourites;
+function setFavouriteProducts(arg0: (prev: any) => any) {
+  throw new Error("Function not implemented.");
+}

@@ -13,13 +13,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/Button";
 import ImageCarousel from "@/components/ImageCarousel";
 import { styles } from "./styles";
+import { useFavourites } from "../../context/FavouriteContext";
 
 const { height } = Dimensions.get("window");
 
 const ProductDetails = ({ navigation, route }: any) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
+  const { addFavourite, removeFavourite, isFavourite } = useFavourites();
   const product = route.params?.product;
+  const [isFavorite, setIsFavorite] = useState(isFavourite(product?.id));
+
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      removeFavourite(product.id);
+    } else {
+      addFavourite(product);
+    }
+    setIsFavorite(!isFavorite);
+  };
 
   const handleBack = () => {
     navigation.goBack();
@@ -49,12 +59,6 @@ const ProductDetails = ({ navigation, route }: any) => {
       console.error("Error opening email:", error);
       Alert.alert("Error", "Could not open email app. Please try again later.");
     }
-  };
-
-  const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-
-    navigation.navigate("Favourites", { newFavourite: product });
   };
 
   return (

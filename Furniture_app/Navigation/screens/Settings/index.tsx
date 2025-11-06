@@ -40,7 +40,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Settings" showBack onBackPress={handleBackPress} />
+      <Header title="Settings" />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Personal Information Section */}

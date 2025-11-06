@@ -43,7 +43,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
 
     const result = await launchImageLibrary({
       mediaType: "photo",
-      selectionLimit: 0, // 0 = unlimited
+      selectionLimit: 0,
       quality: 1,
     });
 
@@ -70,7 +70,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
   };
 
   const handleSubmit = () => {
-    // Validation
     if (!values.title.trim()) {
       Alert.alert("Error", "Please enter a title");
       return;
@@ -88,20 +87,18 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
       return;
     }
 
-    // Create new listing object
     const newListing = {
-      id: Date.now(), // Generate unique ID
+      id: Date.now(),
       title: values.title,
       price: values.price.startsWith("$") ? values.price : `$ ${values.price}`,
       description: values.description,
       category: parseInt(values.category),
-      image: images[0].uri, // Main image
-      images: images.map((img) => img.uri), // All images
+      image: images[0].uri,
+      images: images.map((img) => img.uri),
     };
 
     console.log("New listing created:", newListing);
 
-    // Navigate back to MyListings with the new listing
     navigation.navigate("MyListings", { newListing });
   };
 
@@ -111,17 +108,19 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Add Listing" showBack onBackPress={handleBackPress} />
+      <Header
+        title="Create a new listing"
+        showBack
+        onBackPress={handleBackPress}
+      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          {/* Image Upload Section */}
           <Text style={styles.sectionTitle}>Upload Photos</Text>
           <View style={styles.imagesContainer}>
-            {/* Upload Button */}
             <TouchableOpacity
               style={styles.uploadButton}
               onPress={handleImagePicker}
@@ -133,7 +132,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
               )}
             </TouchableOpacity>
 
-            {/* Display Selected Images */}
             {images.map((image) => (
               <View key={image.fileName} style={styles.imageContainer}>
                 <Image
@@ -153,7 +151,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
             ))}
           </View>
 
-          {/* Form Inputs */}
           <Input
             label="Title"
             placeholder="Listing Title"
@@ -169,7 +166,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
             keyboardType="numeric"
           />
 
-          {/* Category Picker */}
           <View style={styles.pickerContainer}>
             <Text style={styles.pickerLabel}>Category</Text>
             <TouchableOpacity
@@ -187,8 +183,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
               <Text style={styles.dropdownArrow}>▼</Text>
             </TouchableOpacity>
           </View>
-
-          {/* Description Textarea */}
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Description</Text>
             <View style={styles.textareaWrapper}>
@@ -204,7 +198,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
             </View>
           </View>
 
-          {/* Submit Button */}
           <Button
             title="Submit"
             variant="primary"
@@ -214,7 +207,6 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      {/* Category Selection Modal */}
       <Modal visible={modalVisible} transparent animationType="slide">
         <Pressable
           style={styles.modalOverlay}
