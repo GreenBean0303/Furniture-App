@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -15,35 +15,42 @@ interface Product {
 }
 
 interface FavouritesProps {
-  navigation?: any;
+  navigation: any;
+  route: any;
 }
 
-const Favourites: React.FC<FavouritesProps> = ({ navigation }) => {
+const Favourites: React.FC<FavouritesProps> = ({ navigation, route }) => {
   const [favouriteProducts, setFavouriteProducts] = useState<Product[]>(
     products.slice(0, 3)
   );
 
-  const handleRemoveFavourite = (id: number) => {
-    setFavouriteProducts(
-      favouriteProducts.filter((product) => product.id !== id)
-    );
+  const handleAddFavourite = (product: Product) => {
+    setFavouriteProducts((prev) => {
+      const exists = prev.some((p) => p.id === product.id);
+      if (exists) return prev;
+      return [...prev, product];
+    });
   };
 
-  const renderFavouriteItem = ({ item }: { item: Product }) => {
-    return (
-      <FavouriteItem
-        title={item.title}
-        price={item.price}
-        imageUrl={item.image}
-        onPress={() => {
-          if (navigation) {
-            navigation.navigate("ProductDetails", { product: item });
-          }
-        }}
-        onRemove={() => handleRemoveFavourite(item.id)}
-      />
-    );
+  const handleRemoveFavourite = (id: number) => {
+    setFavouriteProducts((prev) => prev.filter((p) => p.id !== id));
   };
+
+  useEffect(() => {
+    if (route.params?.newFavourite) {
+      handleAddFavourite(route.params.newFavourite);
+    }
+  }, [route.params?.newFavourite]);
+
+  const renderFavouriteItem = ({ item }: { item: Product }) => (
+    <FavouriteItem
+      title={item.title}
+      price={item.price}
+      imageUrl={item.image}
+      onPress={() => navigation.navigate("ProductDetails", { product: item })}
+      onRemove={() => handleRemoveFavourite(item.id)}
+    />
+  );
 
   return (
     <SafeAreaView style={styles.container}>

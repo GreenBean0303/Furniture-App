@@ -53,6 +53,8 @@ const ProductDetails = ({ navigation, route }: any) => {
 
   const handleToggleFavorite = () => {
     setIsFavorite(!isFavorite);
+
+    navigation.navigate("Favourites", { newFavourite: product });
   };
 
   return (

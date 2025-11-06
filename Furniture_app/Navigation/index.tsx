@@ -143,6 +143,7 @@ export default function AppNavigator() {
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="MainApp" component={TabNavigator} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
+      <Stack.Screen name="Favourite" component={Favourites} />
     </Stack.Navigator>
   );
 }

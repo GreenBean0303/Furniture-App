@@ -73,4 +73,20 @@ export const styles = StyleSheet.create({
     color: colors.grey,
     textAlign: "center",
   },
+  backButton: {
+    position: "absolute",
+    top: 53,
+    left: 32,
+    zIndex: 10,
+    width: 40,
+    height: 40,
+    padding: 10,
+    borderRadius: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backIcon: {
+    width: 120,
+    height: 120,
+  },
 });

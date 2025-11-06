@@ -19,18 +19,12 @@ interface MyListingsProps {
 }
 
 const MyListings: React.FC<MyListingsProps> = ({ navigation, route }) => {
-  // Initialize with first 3 products as demo listings
   const [listings, setListings] = useState<Listing[]>(products.slice(0, 3));
-
-  // Listen for new listings from CreateListing screen
   useEffect(() => {
     const unsubscribe = navigation?.addListener("focus", () => {
-      // Check if there's a new listing passed back
       if (route?.params?.newListing) {
         const newListing = route.params.newListing;
         setListings((prevListings) => [newListing, ...prevListings]);
-
-        // Clear the param so it doesn't add again
         navigation.setParams({ newListing: undefined });
       }
     });
