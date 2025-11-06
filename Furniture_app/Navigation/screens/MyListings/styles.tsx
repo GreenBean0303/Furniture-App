@@ -38,14 +38,14 @@ export const styles = StyleSheet.create({
     marginLeft: 16,
   },
   listingTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
     color: colors.textPrimary,
     marginBottom: 4,
   },
   listingPrice: {
-    fontSize: 14,
-    fontWeight: "500",
+    fontSize: 16,
+    fontWeight: "700",
     color: colors.textPrimary,
   },
   deleteButton: {
