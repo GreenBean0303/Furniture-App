@@ -132,8 +132,8 @@ const CreateListing: React.FC<CreateListingProps> = ({ navigation, route }) => {
               )}
             </TouchableOpacity>
 
-            {images.map((image) => (
-              <View key={image.fileName} style={styles.imageContainer}>
+            {images.map((image, index) => (
+              <View key={index} style={styles.imageContainer}>
                 <Image
                   source={{ uri: image.uri }}
                   style={styles.uploadedImage}
